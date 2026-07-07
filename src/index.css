@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+/* Theme tokens — dark is the default (no class on <html>), .light overrides.
+   No layout/visual styling applied yet; these variables just make the
+   theme toggle functional. Actual styling comes later in Claude Design. */
+
+:root {
+  --bg: #0B0E14;
+  --surface: #131720;
+  --surface-2: #1B2029;
+  --border: #232838;
+  --text: #E8E6E1;
+  --text-muted: #8B93A7;
+  --accent: #E8A33D;
+  --accent-dim: #E8A33D33;
+  --danger: #E5484D;
+  --ok: #4FBF67;
+}
+
+html.light {
+  --bg: #F7F5F1;
+  --surface: #FFFFFF;
+  --surface-2: #EFEBE3;
+  --border: #DDD7C9;
+  --text: #14161C;
+  --text-muted: #5C6270;
+  --accent: #B4711F;
+  --accent-dim: #B4711F22;
+  --danger: #C4302B;
+  --ok: #1F7A3F;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.font-mono-ui {
+  font-family: "IBM Plex Mono", monospace;
+}
