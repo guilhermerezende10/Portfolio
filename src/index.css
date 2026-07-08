@@ -1,41 +1,160 @@
 @import "tailwindcss";
 
-/* Theme tokens — dark is the default (no class on <html>), .light overrides.
-   No layout/visual styling applied yet; these variables just make the
-   theme toggle functional. Actual styling comes later in Claude Design. */
+/* ---------------------------------------------------------------------------
+   Design tokens — "Portfolio A · Bricolage"
+   Light editorial theme: paper background, ink headings, orange accent,
+   two dark full-bleed sections. Registered with Tailwind v4 so tokens are
+   available as utilities (text-accent, bg-paper, font-display, …).
+--------------------------------------------------------------------------- */
+@theme {
+  --font-display: "Bricolage Grotesque", sans-serif;
+  --font-serif: "Source Serif 4", Georgia, serif;
+  --font-mono: "IBM Plex Mono", monospace;
 
-:root {
-  --bg: #0B0E14;
-  --surface: #131720;
-  --surface-2: #1B2029;
-  --border: #232838;
-  --text: #E8E6E1;
-  --text-muted: #8B93A7;
-  --accent: #E8A33D;
-  --accent-dim: #E8A33D33;
-  --danger: #E5484D;
-  --ok: #4FBF67;
+  --color-paper: #f4f4f4;
+  --color-ink: #000000;
+  --color-body: #4f4f4f;
+  --color-muted: #858585;
+  --color-faint: #adadad;
+  --color-line: #e2e2e2;
+  --color-band: #efefef;
+  --color-accent: #e8730c;
+  --color-dark: #0a0a0a;
 }
 
-html.light {
-  --bg: #F7F5F1;
-  --surface: #FFFFFF;
-  --surface-2: #EFEBE3;
-  --border: #DDD7C9;
-  --text: #14161C;
-  --text-muted: #5C6270;
-  --accent: #B4711F;
-  --accent-dim: #B4711F22;
-  --danger: #C4302B;
-  --ok: #1F7A3F;
+/* Base resets live in the `base` layer so component `text-*`/`font-*`
+   utilities reliably win over them (utilities layer > base layer). */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-paper);
+    color: var(--color-body);
+    font-family: var(--font-serif);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  /* Headings never carry a weight/family utility in the markup, so these
+     hold — matching the design's Bricolage 600 / tight tracking. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #ffffff;
+  }
 }
 
-body {
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: "IBM Plex Sans", sans-serif;
+/* ---------------------------------------------------------------------------
+   Scroll-driven primitives. Elements start hidden in CSS (no flash of content)
+   and the useSiteAnimations hook toggles the "is-in" / "is-visible" classes.
+   Kept unlayered so they reliably apply over utilities.
+--------------------------------------------------------------------------- */
+[data-hero] {
+  opacity: 0;
+  transform: translateY(48px);
+}
+[data-hero].is-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.font-mono-ui {
-  font-family: "IBM Plex Mono", monospace;
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(36px);
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Skills marquee — three identical copies, translate one copy width for a
+   seamless, gapless loop that also covers ultrawide viewports. */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 34s linear infinite;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-33.3333%);
+  }
+}
+
+/* Nav link — animated underline that wipes in on hover. */
+.nav-link {
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition:
+    color 0.25s ease,
+    background-size 0.3s ease;
+}
+.nav-link:hover {
+  color: var(--color-ink);
+  background-size: 100% 2px;
+}
+
+/* Tech pill — brand color washes in on hover, driven by per-pill CSS vars. */
+.tech-tag {
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+.tech-tag:hover {
+  background: var(--tech-bg);
+  border-color: var(--tech-bg);
+  color: var(--tech-fg);
+  transform: translateY(-2px);
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion — reveal everything, stop the parallax/marquee entirely.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-hero],
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  [data-parallax],
+  [data-para] {
+    transform: none !important;
+  }
 }

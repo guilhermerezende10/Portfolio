@@ -1,135 +1,83 @@
-import { useEffect, useRef, useState } from "react";
-import { hero, personal, projects } from "../data/content";
-import { useT, prefersReducedMotion } from "../context/SiteContext";
-
-// One "line" the terminal will render, in order.
-type Line =
-  | { type: "command"; text: string }
-  | { type: "output"; text: string }
-  | { type: "projectList" };
-
-const TYPE_SPEED_MS = 35;
-
-function scrollToId(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-}
+import { hero, personal } from "../data/content";
+import { useT } from "../context/SiteContext";
 
 export default function Hero() {
   const t = useT();
 
-  const lines: Line[] = [
-    { type: "command", text: hero.terminal.whoamiCommand },
-    { type: "output", text: t(hero.terminal.whoamiOutput) },
-    { type: "command", text: hero.terminal.statusCommand },
-    { type: "output", text: t(hero.terminal.statusOutput) },
-    { type: "command", text: hero.terminal.lsCommand },
-    { type: "projectList" },
-  ];
-
-  // How many lines are fully revealed, and how much of the current
-  // command line has been typed so far.
-  const [revealedCount, setRevealedCount] = useState(0);
-  const [typedChars, setTypedChars] = useState(0);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    if (prefersReducedMotion()) {
-      setRevealedCount(lines.length);
-      return;
-    }
-
-    setRevealedCount(0);
-    setTypedChars(0);
-
-    let cancelled = false;
-
-    function runLine(index: number) {
-      if (cancelled || index >= lines.length) return;
-      const line = lines[index];
-
-      if (line.type === "command") {
-        let chars = 0;
-        const typeNext = () => {
-          if (cancelled) return;
-          chars += 1;
-          setTypedChars(chars);
-          if (chars < line.text.length) {
-            timeoutRef.current = setTimeout(typeNext, TYPE_SPEED_MS);
-          } else {
-            timeoutRef.current = setTimeout(() => {
-              setRevealedCount(index + 1);
-              setTypedChars(0);
-              runLine(index + 1);
-            }, 200);
-          }
-        };
-        typeNext();
-      } else {
-        timeoutRef.current = setTimeout(() => {
-          setRevealedCount(index + 1);
-          runLine(index + 1);
-        }, 300);
-      }
-    }
-
-    runLine(0);
-
-    return () => {
-      cancelled = true;
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [t]);
-
-  const currentLine = lines[revealedCount];
-  const isTypingCommand = currentLine?.type === "command";
-
   return (
-    <section id="hero">
-      <div role="group" aria-label="terminal">
-        {lines.slice(0, revealedCount).map((line, i) => (
-          <TerminalLine key={i} line={line} />
-        ))}
+    <header
+      id="top"
+      className="relative flex min-h-screen flex-col items-center justify-center px-6 pb-20 pt-32 text-center sm:px-12"
+      style={{
+        overflow: "clip",
+        background: "linear-gradient(160deg, #F7F7F7 0%, #F1F1F1 60%, #E9E9EA 100%)",
+      }}
+    >
+      {/* 3D dome */}
+      <div
+        data-parallax="0.5"
+        className="pointer-events-none absolute left-1/2 top-[4vh] h-[112vw] w-[112vw] rounded-full"
+        style={{
+          marginLeft: "-56vw",
+          background:
+            "radial-gradient(circle at 38% 20%, #FFFFFF 0%, #FCFCFC 30%, #F2F2F2 48%, #E3E3E4 62%, #CFCFD1 76%, #BFBFC2 88%, #B7B7BA 100%)",
+          boxShadow: "0 80px 160px rgba(0,0,0,0.10), 0 20px 60px rgba(0,0,0,0.06)",
+        }}
+      />
+      {/* soft ambient glow bottom-left, drifts slower */}
+      <div
+        data-parallax="0.25"
+        className="pointer-events-none absolute bottom-[-30vh] left-[-20vw] h-[70vh] w-[70vw]"
+        style={{
+          background:
+            "radial-gradient(closest-side, rgba(255,255,255,0.9), rgba(255,255,255,0) 70%)",
+        }}
+      />
+      {/* fade into page background at the bottom */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[22vh]"
+        style={{ background: "linear-gradient(rgba(244,244,244,0), #F4F4F4)" }}
+      />
 
-        {isTypingCommand && (
-          <TerminalLine
-            line={{ type: "command", text: currentLine.text.slice(0, typedChars) }}
-          />
-        )}
+      <h1
+        data-hero="0"
+        className="relative z-[2] m-0 leading-[1.05] text-ink"
+        style={{ fontSize: "clamp(44px, 6.2vw, 92px)", letterSpacing: "-0.025em" }}
+      >
+        {t(hero.headline)}
+      </h1>
+
+      <div className="relative flex max-w-[1100px] flex-col items-center">
+        <p
+          data-hero="1"
+          className="m-0 mt-3 text-[24px] font-medium leading-[1.1] tracking-[-0.02em] text-faint sm:text-[31px]"
+        >
+          {t(hero.subhead)}
+        </p>
+
+        <div data-hero="2" className="mt-14 flex flex-wrap justify-center gap-4">
+          <a
+            href="#projects"
+            className="rounded-full bg-ink px-7 py-3.5 text-[13px] uppercase tracking-[0.1em] text-white transition-colors hover:bg-accent"
+          >
+            {t(hero.viewProjectsButton)}
+          </a>
+          <a
+            href={personal.resumeFile}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border border-[#C9C9C9] px-7 py-3.5 text-[13px] uppercase tracking-[0.1em] text-ink transition-colors hover:border-black"
+          >
+            {t(hero.downloadResumeButton)}
+          </a>
+        </div>
       </div>
 
-      <div>
-        <button onClick={() => scrollToId("projects")}>{t(hero.viewProjectsButton)}</button>
-        <a href={personal.resumeFile} download>
-          {t(hero.downloadResumeButton)}
-        </a>
+      <div data-hero="3" className="absolute inset-x-0 bottom-9 flex justify-center">
+        <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+          {t(hero.scrollHint)}
+        </span>
       </div>
-    </section>
-  );
-}
-
-function TerminalLine({ line }: { line: Line }) {
-  if (line.type === "command") {
-    return (
-      <p>
-        <span aria-hidden="true">$ </span>
-        {line.text}
-      </p>
-    );
-  }
-
-  if (line.type === "output") {
-    return <p>{line.text}</p>;
-  }
-
-  // projectList
-  return (
-    <ul>
-      {projects.map((project) => (
-        <li key={project.name}>
-          <button onClick={() => scrollToId("projects")}>{project.name}</button>
-        </li>
-      ))}
-    </ul>
+    </header>
   );
 }

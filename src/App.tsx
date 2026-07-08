@@ -1,24 +1,39 @@
 import { SiteProvider } from "./context/SiteContext";
+import { useSiteAnimations } from "./hooks/useSiteAnimations";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import About from "./components/About";
+import SkillsMarquee from "./components/SkillsMarquee";
+import Statement from "./components/Statement";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
+import Education from "./components/Education";
 import Contact from "./components/Contact";
-import Footer from "./components/Footer";
 
-export default function App() {
+function Site() {
+  useSiteAnimations();
+
   return (
-    <SiteProvider>
+    <>
       <Nav />
       <main>
         <Hero />
         <About />
+        <SkillsMarquee />
+        <Statement />
         <Experience />
         <Projects />
+        <Education />
         <Contact />
       </main>
-      <Footer />
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <SiteProvider>
+      <Site />
     </SiteProvider>
   );
 }
