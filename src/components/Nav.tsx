@@ -71,10 +71,9 @@ export default function Nav() {
       }
     };
 
-    const mq = window.matchMedia("(min-width: 640px)");
-    const onViewportChange = () => {
-      if (mq.matches) setOpen(false);
-    };
+const onViewportChange = () => {
+  if (mq.matches) closeMenu();
+};
 
     document.addEventListener("keydown", onKeyDown);
     mq.addEventListener("change", onViewportChange);
