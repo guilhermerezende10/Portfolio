@@ -77,7 +77,12 @@ export function useSiteAnimations() {
       paraEls.forEach((el) => {
         const rate = parseFloat(el.dataset.para ?? "0") || 0;
         const offset = (docTop(el) + el.offsetHeight / 2 - sy - vh / 2) * rate;
-        el.style.transform = `translateY(${-offset}px)`;
+        // Drive parallax on the independent `translate` property, not `transform`.
+        // Elements that also carry [data-reveal] animate `transform` (slide-up) with
+        // a `transition: transform` — writing that same property every frame made the
+        // per-frame updates inherit the transition (laggy) and clobbered the slide.
+        // The two channels now compose without fighting.
+        el.style.translate = `0 ${-offset}px`;
       });
 
       if (eduFill && eduTrack) {
