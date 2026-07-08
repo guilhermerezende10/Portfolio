@@ -134,6 +134,42 @@
   transform: translateY(-2px);
 }
 
+/* Project screenshot frame — a conic-gradient ring that spins continuously
+   behind the image, clipped to a thin border by the padding + inner layer. */
+.project-media-frame {
+  position: relative;
+  border-radius: 1rem;
+  padding: 3px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.project-media-frame::before {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  z-index: 0;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--color-accent) 70deg,
+    transparent 160deg,
+    transparent 360deg
+  );
+  animation: project-media-spin 4s linear infinite;
+}
+.project-media-frame__inner {
+  position: relative;
+  z-index: 1;
+  border-radius: calc(1rem - 3px);
+  overflow: hidden;
+  background: #e8e8e8;
+}
+@keyframes project-media-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* ---------------------------------------------------------------------------
    Reduced motion — reveal everything, stop the parallax/marquee entirely.
 --------------------------------------------------------------------------- */

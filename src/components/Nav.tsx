@@ -1,4 +1,4 @@
-import { nav, personal } from "../data/content";
+import { nav } from "../data/content";
 import { useSite, useT } from "../context/SiteContext";
 import logoBlack from "../images/logo/logo-black.png";
 
@@ -19,14 +19,16 @@ export default function Nav() {
         background: "rgba(255,255,255,0.45)",
         backdropFilter: "blur(18px) saturate(1.4)",
         WebkitBackdropFilter: "blur(18px) saturate(1.4)",
-        boxShadow: "0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.7)",
+        boxShadow:
+          "0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.7)",
       }}
     >
       <a href="#top" className="flex items-center gap-3">
-        <img src={logoBlack} alt="GR logo" className="block h-[30px] w-[30px]" />
-        <span className="hidden text-[13px] font-medium tracking-[0.06em] text-ink sm:inline">
-          {personal.navName}
-        </span>
+        <img
+          src={logoBlack}
+          alt="GR logo"
+          className="block h-[30px] w-[30px]"
+        />
       </a>
 
       <div className="flex items-center gap-5 sm:gap-9">
@@ -44,7 +46,7 @@ export default function Nav() {
           type="button"
           onClick={toggleLang}
           title="Switch language / Mudar idioma"
-          className="flex h-[34px] w-[34px] flex-none items-center justify-center overflow-hidden rounded-full border border-[#C9C9C9] p-0 transition-colors hover:border-black"
+          className="flex h-[34px] w-[34px] flex-none cursor-pointer items-center justify-center overflow-hidden rounded-full border border-[#C9C9C9] p-0 transition-colors hover:border-black"
         >
           <img
             src={flagSrc}

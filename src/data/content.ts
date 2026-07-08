@@ -11,7 +11,6 @@ export interface Bilingual {
 
 export const personal = {
   name: "Guilherme Rezende",
-  navName: "GUILHERME REZENDE",
   role: {
     pt: "Desenvolvedor de Software | React",
     en: "Software Developer | React",
@@ -23,7 +22,6 @@ export const personal = {
   resumeFile: "/guilherme_rezende_resume.pdf",
 };
 
-// Section eyebrow words (the "01 — About" numerals live in the components).
 export const sections = {
   about: { pt: "Sobre", en: "About" } satisfies Bilingual,
   experience: { pt: "Experiência", en: "Experience" } satisfies Bilingual,
@@ -43,16 +41,25 @@ export const nav = {
 
 export const hero = {
   headline: {
-    pt: "Software, feito com intenção.",
+    pt: "Guilherme Rezende",
     en: "Guilherme Rezende",
   } satisfies Bilingual,
   subhead: {
-    pt: "Guilherme Rezende cria interfaces em React & TypeScript.",
+    pt: "Desenvolvedor - React & TypeScript.",
     en: "Developer — React & TypeScript.",
   } satisfies Bilingual,
-  viewProjectsButton: { pt: "Ver projetos", en: "View projects" } satisfies Bilingual,
-  downloadResumeButton: { pt: "Baixar currículo", en: "Download resume" } satisfies Bilingual,
-  scrollHint: { pt: "role para explorar", en: "scroll to explore" } satisfies Bilingual,
+  viewProjectsButton: {
+    pt: "Ver projetos",
+    en: "View projects",
+  } satisfies Bilingual,
+  downloadResumeButton: {
+    pt: "Baixar currículo",
+    en: "Download resume",
+  } satisfies Bilingual,
+  scrollHint: {
+    pt: "role para explorar",
+    en: "scroll to explore",
+  } satisfies Bilingual,
 };
 
 export const about = {
@@ -75,7 +82,6 @@ export const about = {
   basedLabel: { pt: "Base", en: "Based in" } satisfies Bilingual,
 };
 
-// Marquee band — names only.
 export const skills: string[] = [
   "React",
   "TypeScript",
@@ -100,14 +106,24 @@ export const statement = {
 
 export const experience = {
   title: { pt: "Onde trabalho.", en: "Where I work." } satisfies Bilingual,
-  role: { pt: "Desenvolvedor Full Stack", en: "Full Stack Developer" } satisfies Bilingual,
+  role: {
+    pt: "Desenvolvedor Full Stack",
+    en: "Full Stack Developer",
+  } satisfies Bilingual,
   company: "toLearn",
-  period: { pt: "03/2026 — presente", en: "03/2026 — present" } satisfies Bilingual,
+  period: {
+    pt: "03/2026 — presente",
+    en: "03/2026 — present",
+  } satisfies Bilingual,
   description: {
     pt: "Desenvolvimento de funcionalidades frontend em React/TypeScript para plataforma educacional com IA adaptativa, incluindo personalização de trilhas, ferramentas interativas de aprendizagem e gamificação.",
     en: "Frontend feature development in React/TypeScript for an adaptive-AI educational platform, including learning-path personalization, interactive learning tools, and gamification.",
   } satisfies Bilingual,
 };
+
+import docgenScreenshot from "../images/projects/docgen.png";
+import tolearnScreenshot from "../images/projects/tolearn.png";
+import fitmetaScreenshot from "../images/projects/fitmeta.png";
 
 export interface Project {
   name: string;
@@ -116,9 +132,9 @@ export interface Project {
   github?: string;
   deploy?: string;
   description: Bilingual;
+  image: string;
 }
 
-// Ordered as presented in the design: Docgen, toLearn, FitMeta (cards alternate).
 export const projects: Project[] = [
   {
     name: "Docgen",
@@ -129,31 +145,43 @@ export const projects: Project[] = [
       pt: "Web app que recebe código-fonte, detecta a linguagem automaticamente e gera documentação técnica estruturada via LLM local — sem cloud ou API key.",
       en: "Web app that ingests source code, auto-detects the language, and generates structured technical documentation via a local LLM — no cloud or API key required.",
     },
+    image: docgenScreenshot,
   },
   {
     name: "toLearn",
-    status: { pt: "Repositório privado — trabalho atual", en: "Private repository — current work" },
+    status: {
+      pt: "Repositório privado — trabalho atual",
+      en: "Private repository — current work",
+    },
     tech: ["React", "TypeScript"],
     description: {
       pt: "Plataforma educacional com IA adaptativa. Desenvolvimento de funcionalidades frontend incluindo personalização de trilhas de aprendizagem, ferramentas interativas e gamificação.",
       en: "Adaptive-AI educational platform. Frontend feature development including learning-path personalization, interactive learning tools, and gamification.",
     },
+    image: tolearnScreenshot,
   },
   {
     name: "FitMeta",
-    status: { pt: "Projeto de conclusão de curso (TCC)", en: "Capstone project (TCC)" },
+    status: {
+      pt: "Projeto de conclusão de curso (TCC)",
+      en: "Capstone project (TCC)",
+    },
     tech: ["React", "TypeScript", "Supabase", "React Query", "Tailwind"],
     github: "https://github.com/guilhermerezende10/FitMeta",
-    deploy: "https://fit-meta.vercel.app",
+    deploy: "https://fitmeta.com.br",
     description: {
       pt: "Aplicação web para gerenciamento de treinos com autenticação e CRUD integrado ao banco. Controle de rotas privadas, gerenciamento de estado global e tratamento de requisições assíncronas.",
       en: "Training-management web app with authentication and database-backed CRUD. Private route control, global state management, and async request handling.",
     },
+    image: fitmetaScreenshot,
   },
 ];
 
 export const projectsSection = {
-  title: { pt: "Trabalhos selecionados.", en: "Selected work." } satisfies Bilingual,
+  title: {
+    pt: "Trabalhos selecionados.",
+    en: "Selected work.",
+  } satisfies Bilingual,
   liveLabel: { pt: "Ver site ↗", en: "Live site ↗" } satisfies Bilingual,
   githubLabel: { pt: "GitHub ↗", en: "GitHub ↗" } satisfies Bilingual,
 };
@@ -163,33 +191,44 @@ export interface EducationItem {
   end: string;
   title: Bilingual;
   place: string;
-  /** true when the big year sits on the left rail (desktop timeline). */
   yearLeft: boolean;
 }
 
 export const educationSection = {
-  title: { pt: "O caminho até aqui.", en: "The path so far." } satisfies Bilingual,
+  title: {
+    pt: "O caminho até aqui.",
+    en: "The path so far.",
+  } satisfies Bilingual,
 };
 
 export const education: EducationItem[] = [
   {
     start: "2026",
     end: "29",
-    title: { pt: "Bacharel em Ciência da Computação (em andamento)", en: "BSc Computer Science (in progress)" },
+    title: {
+      pt: "Bacharel em Ciência da Computação (em andamento)",
+      en: "BSc Computer Science (in progress)",
+    },
     place: "Universidade Presbiteriana Mackenzie",
     yearLeft: true,
   },
   {
     start: "2023",
     end: "25",
-    title: { pt: "Técnico em Desenvolvimento de Sistemas", en: "Technical Degree in Systems Development" },
+    title: {
+      pt: "Técnico em Desenvolvimento de Sistemas",
+      en: "Technical Degree in Systems Development",
+    },
     place: "ETEC de Praia Grande",
     yearLeft: false,
   },
   {
     start: "2022",
     end: "26",
-    title: { pt: "Inglês como segundo idioma", en: "English as a second language" },
+    title: {
+      pt: "Inglês como segundo idioma",
+      en: "English as a second language",
+    },
     place: "CNA Idiomas",
     yearLeft: true,
   },
@@ -210,7 +249,6 @@ export const footer = {
   } satisfies Bilingual,
 };
 
-// Brand hover colors for the tech pills — { background, foreground }.
 export const techColors: Record<string, { bg: string; fg: string }> = {
   React: { bg: "#61DAFB", fg: "#0B2530" },
   TypeScript: { bg: "#3178C6", fg: "#FFFFFF" },
