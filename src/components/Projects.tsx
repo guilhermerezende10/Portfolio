@@ -17,21 +17,16 @@ function TechPill({ tech }: { tech: string }) {
   );
 }
 
-function ProjectMedia({ name }: { name: string }) {
+function ProjectMedia({ name, image }: { name: string; image: string }) {
   return (
-    <div className="h-[420px] overflow-hidden rounded-2xl bg-[#E8E8E8]">
-      <div data-para="0.07" className="-mt-[15%] h-[130%]">
-        <div
-          className="flex h-full w-full flex-col items-center justify-center gap-3"
-          style={{ background: "linear-gradient(145deg, #ECECEC 0%, #DEDEDE 100%)" }}
-        >
-          <span className="font-display text-[clamp(40px,6vw,72px)] font-semibold tracking-[-0.03em] text-[#CCCCCC]">
-            {name}
-          </span>
-          <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-[#ADADAD]">
-            screenshot
-          </span>
-        </div>
+    <div className="project-media-frame">
+      <div className="project-media-frame__inner">
+        <img
+          src={image}
+          alt={`${name} screenshot`}
+          className="block h-auto w-full"
+          loading="lazy"
+        />
       </div>
     </div>
   );
@@ -51,7 +46,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       }`}
     >
       <div className={imageLeft ? "" : "md:order-2"}>
-        <ProjectMedia name={project.name} />
+        <ProjectMedia name={project.name} image={project.image} />
       </div>
 
       <div className={imageLeft ? "" : "md:order-1"}>

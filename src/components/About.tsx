@@ -1,6 +1,7 @@
 import { about, personal, sections } from "../data/content";
 import { useT } from "../context/SiteContext";
 import Eyebrow from "./Eyebrow";
+import meImage from "../images/about/me.png";
 
 export default function About() {
   const t = useT();
@@ -10,11 +11,18 @@ export default function About() {
       id="about"
       className="mx-auto grid max-w-[1280px] scroll-mt-28 gap-12 border-t border-line px-6 py-24 sm:px-12 md:grid-cols-[1fr_1.6fr] md:gap-16 md:py-36"
     >
-      <div data-reveal data-para="-0.04">
-        <Eyebrow number="01" label={sections.about} className="mb-5" />
-        <h2 className="m-0 text-ink" style={{ fontSize: "clamp(36px, 3.6vw, 56px)" }}>
-          {t(about.title)}
-        </h2>
+      <div data-reveal data-para="-0.04" className="flex flex-col gap-7">
+        <img
+          src={meImage}
+          alt={personal.name}
+          className="h-[200px] w-[200px] rounded-2xl object-cover object-top sm:h-[240px] sm:w-[240px]"
+        />
+        <div>
+          <Eyebrow number="01" label={sections.about} className="mb-5" />
+          <h2 className="m-0 text-ink" style={{ fontSize: "clamp(36px, 3.6vw, 56px)" }}>
+            {t(about.title)}
+          </h2>
+        </div>
       </div>
 
       <div className="flex flex-col gap-8">
