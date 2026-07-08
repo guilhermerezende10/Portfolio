@@ -22,6 +22,20 @@ export const personal = {
   resumeFile: "/guilherme_rezende_resume.pdf",
 };
 
+// Document-level metadata (browser tab title + meta description). Kept bilingual
+// so it can follow the language toggle. The English values mirror the static
+// defaults in index.html, which cover first paint before React mounts.
+export const meta = {
+  title: {
+    pt: "Guilherme Rezende — Desenvolvedor de Software",
+    en: "Guilherme Rezende — Software Developer",
+  } satisfies Bilingual,
+  description: {
+    pt: "Guilherme Rezende — Desenvolvedor de Software (React/TypeScript). Aberto a oportunidades de estágio em front-end e full stack.",
+    en: "Guilherme Rezende — Software Developer (React/TypeScript). Open to front-end and full-stack internship opportunities.",
+  } satisfies Bilingual,
+};
+
 export const sections = {
   about: { pt: "Sobre", en: "About" } satisfies Bilingual,
   experience: { pt: "Experiência", en: "Experience" } satisfies Bilingual,
