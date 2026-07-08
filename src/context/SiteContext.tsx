@@ -6,7 +6,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { Lang } from "../data/content";
+import { meta, type Lang } from "../data/content";
 
 interface SiteContextValue {
   lang: Lang;
@@ -30,6 +30,11 @@ export function SiteProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
     localStorage.setItem(LANG_KEY, lang);
+
+    // Keep the tab title and meta description in sync with the language.
+    document.title = meta.title[lang];
+    const desc = document.querySelector('meta[name="description"]');
+    if (desc) desc.setAttribute("content", meta.description[lang]);
   }, [lang]);
 
   const value = useMemo<SiteContextValue>(
