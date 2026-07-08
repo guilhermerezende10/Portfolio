@@ -74,7 +74,7 @@ export default function Hero() {
       </div>
 
       <div data-hero="3" className="absolute inset-x-0 bottom-9 flex justify-center">
-        <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+        <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted">
           {t(hero.scrollHint)}
         </span>
       </div>

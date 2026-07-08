@@ -14,8 +14,8 @@
   --color-paper: #f4f4f4;
   --color-ink: #000000;
   --color-body: #4f4f4f;
-  --color-muted: #858585;
-  --color-faint: #adadad;
+  --color-muted: #676767; /* ≥4.5:1 on paper for informational text (labels, metadata) */
+  --color-faint: #7d7d7d; /* lightest gray tier; used only for large text (≥3:1) — the Hero subhead */
   --color-line: #e2e2e2;
   --color-band: #efefef;
   --color-accent: #e8730c;
