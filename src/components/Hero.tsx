@@ -1,8 +1,15 @@
 import { hero, personal } from "../data/content";
-import { useT } from "../context/SiteContext";
+import { useSite, useT } from "../context/SiteContext";
+import lightWallpaper from "../images/background/light-wallpaper.jpg";
+import darkWallpaper from "../images/background/dark-wallpaper.jpg";
 
 export default function Hero() {
   const t = useT();
+  // Theme-aware backdrop. Same pattern as the nav logo (see Nav.tsx): the two
+  // wallpapers are picked in JS off the active theme rather than via CSS, so the
+  // right one is chosen from the first render.
+  const { theme } = useSite();
+  const wallpaper = theme === "dark" ? darkWallpaper : lightWallpaper;
 
   return (
     <header
@@ -13,23 +20,20 @@ export default function Hero() {
         background: "var(--hero-bg)",
       }}
     >
-      {/* 3D dome */}
+      {/* Full-bleed wallpaper. Oversized (top:-20%, h:140%) so the parallax
+          translate never exposes an edge; the header's `overflow: clip` trims
+          the excess. */}
       <div
-        data-parallax="0.5"
-        className="pointer-events-none absolute left-1/2 top-[4vh] h-[112vw] w-[112vw] rounded-full"
-        style={{
-          marginLeft: "-56vw",
-          background: "var(--hero-dome)",
-          boxShadow: "var(--hero-dome-shadow)",
-        }}
+        aria-hidden="true"
+        data-parallax="0.18"
+        className="pointer-events-none absolute inset-x-0 -top-[20%] h-[140%] bg-cover bg-center"
+        style={{ backgroundImage: `url(${wallpaper})` }}
       />
-      {/* soft ambient glow bottom-left, drifts slower */}
+      {/* Legibility scrim — a theme-matched wash that lifts the centered
+          headline off the photo without hiding it at the edges. */}
       <div
-        data-parallax="0.25"
-        className="pointer-events-none absolute bottom-[-30vh] left-[-20vw] h-[70vh] w-[70vw]"
-        style={{
-          background: "var(--hero-glow)",
-        }}
+        className="pointer-events-none absolute inset-0"
+        style={{ background: "var(--hero-scrim)" }}
       />
       {/* fade into page background at the bottom */}
       <div

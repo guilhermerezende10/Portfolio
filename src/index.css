@@ -35,23 +35,15 @@
 :root {
   color-scheme: light;
 
-  /* Hero — layered light gradients */
+  /* Hero — themed wallpaper (see Hero.tsx). --hero-bg is the base color behind
+     the photo; --hero-scrim washes the center so the headline stays legible on
+     the light lake photo; --hero-fade blends the bottom into the page. */
   --hero-bg: linear-gradient(160deg, #f7f7f7 0%, #f1f1f1 60%, #e9e9ea 100%);
-  --hero-dome: radial-gradient(
-    circle at 38% 20%,
-    #ffffff 0%,
-    #fcfcfc 30%,
-    #f2f2f2 48%,
-    #e3e3e4 62%,
-    #cfcfd1 76%,
-    #bfbfc2 88%,
-    #b7b7ba 100%
-  );
-  --hero-dome-shadow: 0 80px 160px rgba(0, 0, 0, 0.1), 0 20px 60px rgba(0, 0, 0, 0.06);
-  --hero-glow: radial-gradient(
-    closest-side,
-    rgba(255, 255, 255, 0.9),
-    rgba(255, 255, 255, 0) 70%
+  --hero-scrim: radial-gradient(
+    ellipse 90% 70% at 50% 42%,
+    rgba(244, 244, 244, 0.45) 0%,
+    rgba(244, 244, 244, 0.28) 45%,
+    rgba(244, 244, 244, 0.42) 100%
   );
   --hero-fade: linear-gradient(rgba(244, 244, 244, 0), #f4f4f4);
 
@@ -84,21 +76,11 @@
      both backgrounds, and the dark sections stay dark in both themes. */
 
   --hero-bg: linear-gradient(160deg, #141416 0%, #0e0e10 60%, #090909 100%);
-  --hero-dome: radial-gradient(
-    circle at 38% 20%,
-    #26262a 0%,
-    #202024 30%,
-    #191919 48%,
-    #141416 62%,
-    #0f0f11 76%,
-    #0b0b0d 88%,
-    #090909 100%
-  );
-  --hero-dome-shadow: 0 80px 160px rgba(0, 0, 0, 0.55), 0 20px 60px rgba(0, 0, 0, 0.4);
-  --hero-glow: radial-gradient(
-    closest-side,
-    rgba(255, 255, 255, 0.06),
-    rgba(255, 255, 255, 0) 70%
+  --hero-scrim: radial-gradient(
+    ellipse 90% 70% at 50% 42%,
+    rgba(16, 16, 18, 0.7) 0%,
+    rgba(16, 16, 18, 0.4) 45%,
+    rgba(16, 16, 18, 0.62) 100%
   );
   --hero-fade: linear-gradient(rgba(16, 16, 18, 0), #101012);
 
