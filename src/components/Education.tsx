@@ -36,8 +36,9 @@ export default function Education() {
 
   return (
     <section
+      id="education"
       aria-label="Education"
-      className="relative overflow-clip border-t border-line px-6 py-32 sm:px-12 md:pb-44 md:pt-40"
+      className="relative scroll-mt-28 overflow-clip border-t border-line px-6 py-32 sm:px-12 md:pb-44 md:pt-40"
     >
       {/* drifting decorative shapes */}
       <div

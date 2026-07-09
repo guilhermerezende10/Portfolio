@@ -52,6 +52,7 @@ export const nav = {
     { id: "about", label: sections.about },
     { id: "experience", label: sections.experience },
     { id: "projects", label: sections.projects },
+    { id: "education", label: sections.education },
     { id: "contact", label: sections.contact },
   ],
 };
