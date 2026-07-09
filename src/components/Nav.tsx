@@ -140,8 +140,8 @@ export default function Nav() {
                 key={link.id}
                 href={`#${link.id}`}
                 aria-current={isActive ? "location" : undefined}
-                className={`nav-link hidden py-1.5 text-[12px] uppercase tracking-[0.12em] text-body sm:inline-block${
-                  isActive ? " nav-link--active" : ""
+                className={`nav-link hidden py-1.5 text-[12px] uppercase tracking-[0.12em] text-body sm:inline-block ${
+                  isActive ? "nav-link--active" : ""
                 }`}
               >
                 {t(link.label)}
@@ -265,8 +265,8 @@ export default function Nav() {
                   href={`#${link.id}`}
                   onClick={closeMenu}
                   aria-current={isActive ? "location" : undefined}
-                  className={`rounded-2xl px-4 py-3 text-[13px] uppercase tracking-[0.12em] transition-colors hover:bg-[var(--glass-hover)] hover:text-ink${
-                    isActive ? " bg-[var(--glass-hover)] text-ink" : " text-body"
+                  className={`rounded-2xl px-4 py-3 text-[13px] uppercase tracking-[0.12em] transition-colors hover:bg-[var(--glass-hover)] hover:text-ink ${
+                    isActive ? "bg-[var(--glass-hover)] text-ink" : "text-body"
                   }`}
                 >
                   {t(link.label)}
