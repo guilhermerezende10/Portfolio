@@ -191,6 +191,13 @@
   background-size: 100% 2px;
 }
 
+/* Section the user is currently scrolled to — shows the underline permanently
+   and the ink color, matching the hover treatment. */
+.nav-link--active {
+  color: var(--color-ink);
+  background-size: 100% 2px;
+}
+
 /* Mobile menu — slides/fades in below the nav pill when the hamburger opens. */
 .mobile-menu-panel {
   animation: mobile-menu-in 0.28s cubic-bezier(0.16, 1, 0.3, 1);
