@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { nav } from "../data/content";
 import { useSite, useT } from "../context/SiteContext";
 import logoBlack from "../images/logo/logo-black.png";
+import logoWhite from "../images/logo/logo-white.png";
 
 const FLAG_BR = "https://flagcdn.com/w80/br.png";
 const FLAG_US = "https://flagcdn.com/w80/us.png";
@@ -115,7 +116,7 @@ export default function Nav() {
       >
         <a href="#top" className="flex items-center gap-3">
           <img
-            src={logoBlack}
+            src={theme === "dark" ? logoWhite : logoBlack}
             alt="GR logo"
             className="block h-[30px] w-[30px]"
           />
