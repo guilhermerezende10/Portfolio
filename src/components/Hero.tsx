@@ -61,7 +61,7 @@ export default function Hero() {
             {t(hero.viewProjectsButton)}
           </a>
           <a
-            href={personal.resumeFile}
+            href={t(personal.resumeFile)}
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-full border border-[color:var(--control-border)] px-7 py-3.5 text-[13px] uppercase tracking-[0.1em] text-ink transition-colors hover:border-ink"
