@@ -1,3 +1,8 @@
+/* eslint-disable react-refresh/only-export-components --
+   The SiteProvider component is intentionally colocated with its consumer hooks
+   (useSite, useT) — the standard React context pattern. This only relaxes
+   Fast Refresh for this rarely-edited module; splitting hooks into a separate
+   file would ripple import changes across every consumer for no runtime gain. */
 import {
   createContext,
   useContext,
