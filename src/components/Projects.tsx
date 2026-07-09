@@ -26,6 +26,8 @@ function ProjectMedia({ name, image }: { name: string; image: string }) {
           alt={`${name} screenshot`}
           className="block h-auto w-full"
           loading="lazy"
+          width={1920}
+          height={1200}
         />
       </div>
     </div>
