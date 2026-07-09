@@ -1,7 +1,7 @@
 import { about, personal, sections } from "../data/content";
 import { useT } from "../context/SiteContext";
 import Eyebrow from "./Eyebrow";
-import meImage from "../images/about/me.png";
+import meImage from "../images/about/me.webp";
 
 export default function About() {
   const t = useT();
@@ -15,6 +15,10 @@ export default function About() {
         <img
           src={meImage}
           alt={personal.name}
+          width={480}
+          height={480}
+          loading="lazy"
+          decoding="async"
           className="h-[200px] w-[200px] rounded-2xl object-cover object-top sm:h-[240px] sm:w-[240px]"
         />
         <div>
