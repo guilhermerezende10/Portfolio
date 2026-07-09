@@ -138,9 +138,9 @@ export const experience = {
   } satisfies Bilingual,
 };
 
-import docgenScreenshot from "../images/projects/docgen.png";
-import tolearnScreenshot from "../images/projects/tolearn.png";
-import fitmetaScreenshot from "../images/projects/fitmeta.png";
+import docgenScreenshot from "../images/projects/docgen.webp";
+import tolearnScreenshot from "../images/projects/tolearn.webp";
+import fitmetaScreenshot from "../images/projects/fitmeta.webp";
 
 export interface Project {
   name: string;

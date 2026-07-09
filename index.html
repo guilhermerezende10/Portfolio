@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <!-- Resolve the theme before first paint so there is no flash of the wrong
-         theme. Mirrors getInitialTheme() in src/context/SiteContext.tsx. -->
+         theme. Mirrors getInitialTheme() in src/context/SiteContext.tsx.
+         Also preloads the theme-correct hero wallpaper — it's the LCP image, and
+         it's applied as a CSS background from JS (see Hero.tsx), so without this
+         hint the browser wouldn't discover it until after hydration. Paths must
+         stay in sync with the WALLPAPER map in Hero.tsx. -->
     <script>
       (function () {
         try {
@@ -14,6 +18,12 @@
               : "light";
           }
           document.documentElement.dataset.theme = t;
+          var link = document.createElement("link");
+          link.rel = "preload";
+          link.as = "image";
+          link.href = "/images/background/" + t + "-wallpaper.jpg";
+          link.fetchPriority = "high";
+          document.head.appendChild(link);
         } catch (e) {
           /* localStorage/matchMedia unavailable — fall back to the light default */
         }
@@ -66,12 +76,8 @@
       content="Guilherme Rezende — Software Developer · React & TypeScript"
     />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fonts are self-hosted via @fontsource (imported in src/main.tsx) so the
+         page no longer makes a render-blocking round-trip to Google Fonts. -->
   </head>
   <body>
     <div id="root"></div>
