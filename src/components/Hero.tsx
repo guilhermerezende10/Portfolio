@@ -6,8 +6,8 @@ import { useSite, useT } from "../context/SiteContext";
 // LCP image, so preloading it shaves the largest paint. Keep these paths in sync
 // with that preload block.
 const WALLPAPER = {
-  light: "/images/background/light-wallpaper.webp",
-  dark: "/images/background/dark-wallpaper.webp",
+  light: "/images/background/light-wallpaper.jpg",
+  dark: "/images/background/dark-wallpaper.jpg",
 } as const;
 
 export default function Hero() {
