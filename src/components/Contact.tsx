@@ -58,7 +58,7 @@ export default function Contact() {
             {t(contact.linkedinLabel)}
           </a>
           <a
-            href={personal.resumeFile}
+            href={t(personal.resumeFile)}
             target="_blank"
             rel="noopener noreferrer"
             className={socialClass}

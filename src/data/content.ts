@@ -19,7 +19,10 @@ export const personal = {
   github: "https://github.com/guilhermerezende10",
   linkedin: "https://www.linkedin.com/in/guilherme-rezende-silva-518297235/",
   location: "São Paulo, SP, Brazil",
-  resumeFile: "/guilherme_rezende_resume.pdf",
+  resumeFile: {
+    pt: "/guilherme_rezende_resume_pt.pdf",
+    en: "/guilherme_rezende_resume_en.pdf",
+  } satisfies Bilingual,
 };
 
 // Document-level metadata (browser tab title + meta description). Kept bilingual
