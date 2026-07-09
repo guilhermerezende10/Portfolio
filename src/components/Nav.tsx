@@ -1,8 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { nav } from "../data/content";
 import { useSite, useT } from "../context/SiteContext";
+import { useActiveSection } from "../hooks/useActiveSection";
 import logoBlack from "../images/logo/logo-black.png";
 import logoWhite from "../images/logo/logo-white.png";
+
+// Stable id list for the active-section observer. Derived once at module load
+// (ids never change; only their translated labels do), so the hook's effect
+// isn't torn down and rebuilt on every render.
+const NAV_IDS = nav.links.map((link) => link.id);
 
 const FLAG_BR = "https://flagcdn.com/w80/br.png";
 const FLAG_US = "https://flagcdn.com/w80/us.png";
@@ -25,6 +31,10 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  // Id of the section currently on screen ("" when none), used to highlight the
+  // matching nav link as the user scrolls.
+  const activeId = useActiveSection(NAV_IDS);
 
   // The flag shows the language you'd switch TO: EN → BR flag, PT → US flag.
   const flagSrc = lang === "en" ? FLAG_BR : FLAG_US;
@@ -123,15 +133,21 @@ export default function Nav() {
         </a>
 
         <div className="flex items-center gap-5 sm:gap-9">
-          {nav.links.map((link) => (
-            <a
-              key={link.id}
-              href={`#${link.id}`}
-              className="nav-link hidden py-1.5 text-[12px] uppercase tracking-[0.12em] text-body sm:inline-block"
-            >
-              {t(link.label)}
-            </a>
-          ))}
+          {nav.links.map((link) => {
+            const isActive = link.id === activeId;
+            return (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                aria-current={isActive ? "location" : undefined}
+                className={`nav-link hidden py-1.5 text-[12px] uppercase tracking-[0.12em] text-body sm:inline-block${
+                  isActive ? " nav-link--active" : ""
+                }`}
+              >
+                {t(link.label)}
+              </a>
+            );
+          })}
 
           <button
             type="button"
@@ -241,16 +257,22 @@ export default function Nav() {
             className="mobile-menu-panel fixed left-6 right-6 top-[84px] z-50 flex flex-col gap-1 rounded-3xl p-3 sm:hidden"
             style={glassStyle}
           >
-            {nav.links.map((link) => (
-              <a
-                key={link.id}
-                href={`#${link.id}`}
-                onClick={closeMenu}
-                className="rounded-2xl px-4 py-3 text-[13px] uppercase tracking-[0.12em] text-body transition-colors hover:bg-[var(--glass-hover)] hover:text-ink"
-              >
-                {t(link.label)}
-              </a>
-            ))}
+            {nav.links.map((link) => {
+              const isActive = link.id === activeId;
+              return (
+                <a
+                  key={link.id}
+                  href={`#${link.id}`}
+                  onClick={closeMenu}
+                  aria-current={isActive ? "location" : undefined}
+                  className={`rounded-2xl px-4 py-3 text-[13px] uppercase tracking-[0.12em] transition-colors hover:bg-[var(--glass-hover)] hover:text-ink${
+                    isActive ? " bg-[var(--glass-hover)] text-ink" : " text-body"
+                  }`}
+                >
+                  {t(link.label)}
+                </a>
+              );
+            })}
           </div>
         </>
       )}
