@@ -242,7 +242,14 @@
     transparent 160deg,
     transparent 360deg
   );
+  /* Paused by default; useSiteAnimations toggles `.is-spinning` only while the
+     card is in the viewport, so the ring isn't repainting off-screen (or at all
+     without JS / with reduced motion). */
   animation: project-media-spin 4s linear infinite;
+  animation-play-state: paused;
+}
+.project-media-frame.is-spinning::before {
+  animation-play-state: running;
 }
 .project-media-frame__inner {
   position: relative;

@@ -62,8 +62,7 @@ export function useSiteAnimations() {
       return t;
     };
 
-    let rafId = 0;
-    const tick = () => {
+    const render = () => {
       const vh = window.innerHeight;
       const sy = window.scrollY;
 
@@ -90,13 +89,38 @@ export function useSiteAnimations() {
         const p = Math.min(1, Math.max(0, (vh * 0.72 - r.top) / r.height));
         eduFill.style.transform = `scaleY(${p})`;
       }
-
-      rafId = requestAnimationFrame(tick);
     };
-    rafId = requestAnimationFrame(tick);
+
+    // Scroll/resize drive a single coalesced rAF instead of a perpetual loop, so
+    // the parallax math (and its getBoundingClientRect reads) runs only when the
+    // viewport actually moves — no steady per-frame work while the page sits idle.
+    let rafId = 0;
+    const schedule = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        render();
+      });
+    };
+    render(); // set initial positions before the first scroll
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+
+    // ---- Project frame spin — only run the decorative ring while on-screen ----
+    const spin = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle("is-spinning", entry.isIntersecting);
+      });
+    });
+    document
+      .querySelectorAll<HTMLElement>(".project-media-frame")
+      .forEach((el) => spin.observe(el));
 
     return () => {
       io.disconnect();
+      spin.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, []);

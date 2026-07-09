@@ -1,7 +1,14 @@
 import { hero, personal } from "../data/content";
 import { useSite, useT } from "../context/SiteContext";
-import lightWallpaper from "../images/background/light-wallpaper.jpg";
-import darkWallpaper from "../images/background/dark-wallpaper.jpg";
+
+// Wallpapers live in public/ (stable, unhashed URLs) so the pre-paint script in
+// index.html can <link rel="preload"> the theme-correct one — this is the hero's
+// LCP image, so preloading it shaves the largest paint. Keep these paths in sync
+// with that preload block.
+const WALLPAPER = {
+  light: "/images/background/light-wallpaper.webp",
+  dark: "/images/background/dark-wallpaper.webp",
+} as const;
 
 export default function Hero() {
   const t = useT();
@@ -9,7 +16,7 @@ export default function Hero() {
   // wallpapers are picked in JS off the active theme rather than via CSS, so the
   // right one is chosen from the first render.
   const { theme } = useSite();
-  const wallpaper = theme === "dark" ? darkWallpaper : lightWallpaper;
+  const wallpaper = WALLPAPER[theme];
 
   return (
     <header
