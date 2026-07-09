@@ -1,5 +1,7 @@
 # Guilherme Rezende — Portfolio
-
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![CI](https://github.com/guilhermerezende10/Portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/guilhermerezende10/Portfolio/actions/workflows/ci.yml)
 
 Personal portfolio of Guilherme Rezende — a fast, bilingual, scroll-driven single-page site for a software developer (React / TypeScript).
