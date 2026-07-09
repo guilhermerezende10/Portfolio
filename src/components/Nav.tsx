@@ -2,21 +2,24 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { nav } from "../data/content";
 import { useSite, useT } from "../context/SiteContext";
 import logoBlack from "../images/logo/logo-black.png";
+import logoWhite from "../images/logo/logo-white.png";
 
 const FLAG_BR = "https://flagcdn.com/w80/br.png";
 const FLAG_US = "https://flagcdn.com/w80/us.png";
 
 // Frosted-glass surface shared by the nav pill and the mobile menu panel.
+// The colors come from theme variables (see index.css) so the pill turns to
+// dark glass in dark mode; the blur/border stay put.
 const glassStyle: React.CSSProperties = {
-  background: "rgba(255,255,255,0.45)",
+  background: "var(--glass-bg)",
   backdropFilter: "blur(18px) saturate(1.4)",
   WebkitBackdropFilter: "blur(18px) saturate(1.4)",
-  boxShadow:
-    "0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.7)",
+  boxShadow: "var(--glass-shadow)",
+  border: "1px solid var(--glass-border)",
 };
 
 export default function Nav() {
-  const { lang, toggleLang } = useSite();
+  const { lang, toggleLang, theme, toggleTheme } = useSite();
   const t = useT();
 
   const [open, setOpen] = useState(false);
@@ -25,6 +28,17 @@ export default function Nav() {
 
   // The flag shows the language you'd switch TO: EN → BR flag, PT → US flag.
   const flagSrc = lang === "en" ? FLAG_BR : FLAG_US;
+
+  // Like the flag, the toggle advertises the theme you'd switch TO: a moon in
+  // light mode, a sun in dark mode.
+  const themeLabel =
+    theme === "light"
+      ? lang === "pt"
+        ? "Ativar tema escuro"
+        : "Switch to dark theme"
+      : lang === "pt"
+        ? "Ativar tema claro"
+        : "Switch to light theme";
 
   const closeMenu = useCallback(() => {
     setOpen(false);
@@ -97,12 +111,12 @@ export default function Nav() {
   return (
     <>
       <nav
-        className="fixed top-4 left-6 right-6 z-50 flex items-center justify-between rounded-full border border-white/60 px-4 py-3 sm:px-7"
+        className="fixed top-4 left-6 right-6 z-50 flex items-center justify-between rounded-full px-4 py-3 sm:px-7"
         style={glassStyle}
       >
         <a href="#top" className="flex items-center gap-3">
           <img
-            src={logoBlack}
+            src={theme === "dark" ? logoWhite : logoBlack}
             alt="GR logo"
             className="block h-[30px] w-[30px]"
           />
@@ -123,7 +137,7 @@ export default function Nav() {
             type="button"
             onClick={toggleLang}
             title="Switch language / Mudar idioma"
-            className="flex h-[34px] w-[34px] flex-none cursor-pointer items-center justify-center overflow-hidden rounded-full border border-[#C9C9C9] p-0 transition-colors hover:border-black"
+            className="flex h-[34px] w-[34px] flex-none cursor-pointer items-center justify-center overflow-hidden rounded-full border border-[color:var(--control-border)] p-0 transition-colors hover:border-ink"
           >
             <img
               src={flagSrc}
@@ -133,13 +147,52 @@ export default function Nav() {
           </button>
 
           <button
+            type="button"
+            onClick={toggleTheme}
+            title={themeLabel}
+            aria-label={themeLabel}
+            className="flex h-[34px] w-[34px] flex-none cursor-pointer items-center justify-center rounded-full border border-[color:var(--control-border)] p-0 text-ink transition-colors hover:border-ink"
+          >
+            {theme === "light" ? (
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            ) : (
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+              </svg>
+            )}
+          </button>
+
+          <button
             ref={triggerRef}
             type="button"
             onClick={() => (open ? closeMenu() : setOpen(true))}
             aria-label={menuLabel}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className="flex h-[34px] w-[34px] flex-none cursor-pointer items-center justify-center rounded-full border border-[#C9C9C9] p-0 text-ink transition-colors hover:border-black sm:hidden"
+            className="flex h-[34px] w-[34px] flex-none cursor-pointer items-center justify-center rounded-full border border-[color:var(--control-border)] p-0 text-ink transition-colors hover:border-ink sm:hidden"
           >
             {open ? (
               <svg
@@ -185,7 +238,7 @@ export default function Nav() {
           <div
             id="mobile-menu"
             ref={menuRef}
-            className="mobile-menu-panel fixed left-6 right-6 top-[84px] z-50 flex flex-col gap-1 rounded-3xl border border-white/60 p-3 sm:hidden"
+            className="mobile-menu-panel fixed left-6 right-6 top-[84px] z-50 flex flex-col gap-1 rounded-3xl p-3 sm:hidden"
             style={glassStyle}
           >
             {nav.links.map((link) => (
@@ -193,7 +246,7 @@ export default function Nav() {
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={closeMenu}
-                className="rounded-2xl px-4 py-3 text-[13px] uppercase tracking-[0.12em] text-body transition-colors hover:bg-white/40 hover:text-ink"
+                className="rounded-2xl px-4 py-3 text-[13px] uppercase tracking-[0.12em] text-body transition-colors hover:bg-[var(--glass-hover)] hover:text-ink"
               >
                 {t(link.label)}
               </a>
