@@ -30,8 +30,8 @@ export const personal = {
 // defaults in index.html, which cover first paint before React mounts.
 export const meta = {
   title: {
-    pt: "Guilherme Rezende — Desenvolvedor de Software",
-    en: "Guilherme Rezende — Software Developer",
+    pt: "Guilherme Rezende's Portfolio",
+    en: "Guilherme Rezende's Portfolio",
   } satisfies Bilingual,
   description: {
     pt: "Guilherme Rezende — Desenvolvedor de Software (React/TypeScript). Aberto a oportunidades de estágio em front-end e full stack.",
