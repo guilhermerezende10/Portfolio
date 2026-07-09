@@ -9,7 +9,7 @@ function TechPill({ tech }: { tech: string }) {
   const color = techColors[tech] ?? DEFAULT_TECH;
   return (
     <span
-      className="tech-tag cursor-default rounded-full border border-[#D6D6D6] px-3 py-[5px] font-mono text-[11px] text-body"
+      className="tech-tag cursor-default rounded-full border border-[color:var(--tech-border)] px-3 py-[5px] font-mono text-[11px] text-body"
       style={{ "--tech-bg": color.bg, "--tech-fg": color.fg } as CSSProperties}
     >
       {tech}
