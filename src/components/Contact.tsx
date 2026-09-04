@@ -36,6 +36,14 @@ export default function Contact() {
           {t(contact.title)}
         </h2>
 
+        <p
+          data-reveal
+          data-para="0.1"
+          className="m-0 -mt-4 max-w-[560px] text-[20px] leading-[1.5] text-[#8A8A8A]"
+        >
+          {t(contact.pitch)}
+        </p>
+
         <a
           data-reveal
           href={`mailto:${personal.email}`}
