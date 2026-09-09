@@ -34,8 +34,8 @@ export const meta = {
     en: "Guilherme Rezende's Portfolio",
   } satisfies Bilingual,
   description: {
-    pt: "Guilherme Rezende — Desenvolvedor de Software (React/TypeScript). Aberto a oportunidades de estágio em front-end e full stack.",
-    en: "Guilherme Rezende — Software Developer (React/TypeScript). Open to front-end and full-stack internship opportunities.",
+    pt: "Guilherme Rezende — Desenvolvedor front-end (React/TypeScript) e Tech Intern na Amazon (AWS Partner Core): IA generativa, analytics e automação.",
+    en: "Guilherme Rezende — Front-end developer (React/TypeScript) and Tech Intern at Amazon (AWS Partner Core): generative AI, analytics, and automation.",
   } satisfies Bilingual,
 };
 
@@ -88,8 +88,8 @@ export const about = {
       en: "Second-semester Computer Science student at Universidade Presbiteriana Mackenzie, graduated in Systems Development from ETEC. Practical experience building web applications with React and API integration.",
     },
     {
-      pt: "Buscando oportunidade de estágio para aplicar e expandir conhecimentos em desenvolvimento front-end e full stack.",
-      en: "Looking for an internship to apply and grow front-end and full-stack skills.",
+      pt: "Atualmente Tech Intern na Amazon, no time de Enablement Platform Engineering & Generative AI Solutions do AWS Partner Core, trabalhando com IA generativa, analytics e automação.",
+      en: "Currently a Tech Intern at Amazon on the Enablement Platform Engineering & Generative AI Solutions team within AWS Partner Core, working across generative AI, analytics, and automation.",
     },
   ] satisfies Bilingual[],
   languagesLabel: { pt: "Idiomas", en: "Languages" } satisfies Bilingual,
@@ -113,31 +113,73 @@ export const skills: string[] = [
 
 export const statement = {
   heading: {
-    pt: "Aberto a oportunidades de estágio em desenvolvimento front-end e full stack.",
-    en: "Open to front-end and full-stack internship opportunities.",
+    pt: "Construindo produtos com IA generativa, analytics e automação.",
+    en: "Building products across generative AI, analytics, and automation.",
   } satisfies Bilingual,
   sub: {
-    pt: "Atualmente desenvolvendo em produção na toLearn — e pronto para o próximo desafio.",
-    en: "Currently shipping production features at toLearn — and ready for the next challenge.",
+    pt: "Atualmente Tech Intern na Amazon, no time de Enablement Platform Engineering & Generative AI Solutions do AWS Partner Core.",
+    en: "Currently a Tech Intern at Amazon on the Enablement Platform Engineering & Generative AI Solutions team within AWS Partner Core.",
   } satisfies Bilingual,
 };
 
-export const experience = {
+export interface Experience {
+  id: string;
+  company: string;
+  /** Org or team within the company, rendered on its own line under the role. */
+  team?: Bilingual;
+  role: Bilingual;
+  period: Bilingual;
+  /** Ongoing role — the card renders an accent "current" pill. */
+  current: boolean;
+  /** Optional company mark. Entries without one render no logo and reserve no space. */
+  logo?: { src: string; alt: string };
+  description: Bilingual;
+}
+
+export const experienceSection = {
   title: { pt: "Onde trabalho.", en: "Where I work." } satisfies Bilingual,
-  role: {
-    pt: "Desenvolvedor Full Stack",
-    en: "Full Stack Developer",
-  } satisfies Bilingual,
-  company: "toLearn",
-  period: {
-    pt: "03/2026 — presente",
-    en: "03/2026 — present",
-  } satisfies Bilingual,
-  description: {
-    pt: "Desenvolvimento de funcionalidades frontend em React/TypeScript para plataforma educacional com IA adaptativa, incluindo personalização de trilhas, ferramentas interativas de aprendizagem e gamificação.",
-    en: "Frontend feature development in React/TypeScript for an adaptive-AI educational platform, including learning-path personalization, interactive learning tools, and gamification.",
-  } satisfies Bilingual,
+  currentLabel: { pt: "atual", en: "current" } satisfies Bilingual,
 };
+
+/** Roles, most recent first. */
+export const experiences: Experience[] = [
+  {
+    id: "amazon",
+    company: "Amazon",
+    team: { pt: "AWS Partner Core", en: "AWS Partner Core" },
+    role: {
+      pt: "Tech Intern",
+      en: "Tech Intern",
+    },
+    period: {
+      pt: "set/2026 – atual",
+      en: "Sep 2026 – Present",
+    },
+    current: true,
+    logo: { src: "/images/aws-logo.svg", alt: "Amazon Web Services" },
+    description: {
+      pt: "Atuação no time Enablement Platform Engineering & Generative AI Solutions (ESS), desenvolvendo soluções técnicas escaláveis em IA generativa, analytics e automação de fluxos de trabalho — incluindo aplicações com Amazon Bedrock, pipelines de dados com relatórios em QuickSight, interfaces de gerenciamento de conteúdo e frameworks de qualidade.",
+      en: "Part of the Enablement Platform Engineering & Generative AI Solutions (ESS) team, building scalable technical solutions across generative AI, analytics, and workflow automation — including Amazon Bedrock applications, data pipelines with QuickSight reporting, content-management UIs, and quality frameworks.",
+    },
+  },
+  {
+    id: "tolearn",
+    company: "toLearn",
+    role: {
+      pt: "Desenvolvedor Full Stack",
+      en: "Full Stack Developer",
+    },
+    period: {
+      pt: "mar/2026 – ago/2026",
+      en: "Mar 2026 – Aug 2026",
+    },
+    current: false,
+    description: {
+      pt: "Desenvolvi funcionalidades frontend em React/TypeScript para plataforma educacional com IA adaptativa, incluindo personalização de trilhas, ferramentas interativas de aprendizagem e gamificação.",
+      en: "Developed frontend features in React/TypeScript for an adaptive-AI educational platform, including learning-path personalization, interactive learning tools, and gamification.",
+    },
+  },
+];
 
 import docgenScreenshot from "../images/projects/docgen.webp";
 import tolearnScreenshot from "../images/projects/tolearn.webp";
@@ -168,8 +210,8 @@ export const projects: Project[] = [
   {
     name: "toLearn",
     status: {
-      pt: "Repositório privado — trabalho atual",
-      en: "Private repository — current work",
+      pt: "Repositório privado — trabalho anterior",
+      en: "Private repository — past work",
     },
     tech: ["React", "TypeScript"],
     description: {
@@ -254,6 +296,10 @@ export const education: EducationItem[] = [
 
 export const contact = {
   title: { pt: "Vamos conversar.", en: "Let's talk." } satisfies Bilingual,
+  pitch: {
+    pt: "Aberto a conversas sobre projetos, colaborações e oportunidades.",
+    en: "Open to conversations about projects, collaboration, and opportunities.",
+  } satisfies Bilingual,
   githubLabel: { pt: "GitHub ↗", en: "GitHub ↗" } satisfies Bilingual,
   linkedinLabel: { pt: "LinkedIn ↗", en: "LinkedIn ↗" } satisfies Bilingual,
   resumeLabel: { pt: "Currículo ↗", en: "Resume ↗" } satisfies Bilingual,
